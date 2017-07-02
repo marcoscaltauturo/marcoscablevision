@@ -9,34 +9,36 @@ import com.marcos.cablevision.utils.AutomovilUtil;
 public class TestMain {
 	public static void main(String[] args) {
 		TestMain testMain = new TestMain();
-		testMain.addPrecios();
-		AutomovilUtil automovilUtil= new AutomovilUtil();
-		Automovil nuevoAuto=new Automovil("COUPE");
+		//testMain.addPrecios();
+		AutomovilUtil automovilUtil = new AutomovilUtil();
+		Automovil nuevoAuto = new Automovil("COUPE");
 		nuevoAuto.getListaOpcionales().add("TC");
 		automovilUtil.crearAuto(nuevoAuto);
-		
-		nuevoAuto=new Automovil("COUPE");
+
+		nuevoAuto = new Automovil("COUPE");
 		nuevoAuto.getListaOpcionales().add("LL");
 		automovilUtil.crearAuto(nuevoAuto);
 		for (String precio : nuevoAuto.getListaOpcionales()) {
 			System.out.println(precio);
 		}
 
-		for(Automovil auto: automovilUtil.listarAutomoviles()){
+		for (Automovil auto : automovilUtil.listarAutomoviles()) {
 			System.out.println(auto);
 		}
-		
-		nuevoAuto=automovilUtil.obtenerAutoPorId(1);
-		nuevoAuto.getListaOpcionales().remove("TC");
-		nuevoAuto.getListaOpcionales().add("AA");
+
+		nuevoAuto = automovilUtil.obtenerAutoPorId(1);
+		nuevoAuto.removeCaracteristica("TC");
+		nuevoAuto.addCaracteristica("AA");
 		for (String precio : nuevoAuto.getListaOpcionales()) {
 			System.out.println(precio);
 		}
 		automovilUtil.updateAuto(nuevoAuto);
-		for(Automovil auto: automovilUtil.listarAutomoviles()){
+		nuevoAuto = automovilUtil.obtenerAutoPorId(1);
+		automovilUtil.eliminarAuto(nuevoAuto);
+		for (Automovil auto : automovilUtil.listarAutomoviles()) {
 			System.out.println(auto);
 		}
-		
+
 		DBConnection.getSessionFactory().close();
 	}
 

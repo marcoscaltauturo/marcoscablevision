@@ -31,6 +31,7 @@ public class AutomovilUtil {
 		Integer valorTotal = Integer.valueOf(0);
 //		auto=fixCaracteristicas(auto);
 		for (String caracteristica : auto.getListaOpcionales()) {
+			System.out.println("caracteristica: " + caracteristica + " PRecio: " + this.precioDAO.getPrecio(caracteristica));
 			valorTotal += this.precioDAO.getPrecio(caracteristica);
 		}
 		auto.setPrecioTotal(valorTotal);
@@ -80,5 +81,10 @@ public class AutomovilUtil {
 		auto=calcularPrecioAutomovil((auto));
 		this.automovilDAO.update(auto);
 	}
+	
+	public void eliminarAuto(Automovil auto) {
+		this.automovilDAO.delete(auto);
+	}
+
 
 }
