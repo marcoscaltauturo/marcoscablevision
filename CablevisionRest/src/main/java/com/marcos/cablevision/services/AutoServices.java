@@ -75,5 +75,18 @@ public class AutoServices {
 			return Response.status(Status.BAD_REQUEST).entity("Parametros Invalidos").build();
 		}
 	}
+	
+	@GET
+	@Path("/eliminarAutoById/{idAuto}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response eliminarAutoByID(@PathParam("param") long idAuto) {
+		Automovil auto = automovilUtil.obtenerAutoPorId(idAuto);
+		if (auto != null) {
+			automovilUtil.eliminarAuto(auto);
+			return Response.status(200).entity(auto).build();
+		}
+		return Response.status(500).entity("Auto no encontrado").build();
+	}
+
 
 }
