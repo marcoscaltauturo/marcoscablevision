@@ -23,7 +23,7 @@ public class AutoServices {
 	@GET
 	@Path("/getAutoById/{idAuto}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAutoByID(@PathParam("param") long idAuto) {
+	public Response getAutoByID(@PathParam("idAuto") long idAuto) {
 		Automovil auto = automovilUtil.obtenerAutoPorId(idAuto);
 		if (auto != null) {
 			return Response.status(200).entity(auto).build();
@@ -50,6 +50,7 @@ public class AutoServices {
 		if(auto!=null && auto.getId()>0){
 			Automovil nuevoAuto = automovilUtil.obtenerAutoPorId(auto.getId());
 			if (nuevoAuto != null) {
+				automovilUtil.updateAuto(auto);
 				return Response.status(200).entity(auto).build();
 			}
 			return Response.status(500).entity("Auto no guardado").build();	
@@ -64,11 +65,11 @@ public class AutoServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearAuto(Automovil auto) {
-		if(auto!=null && auto.getId()>0){
+		if(auto!=null){
 			long idNuevoAuto = automovilUtil.crearAuto(auto);
 			Automovil nuevoAuto = automovilUtil.obtenerAutoPorId(idNuevoAuto);
 			if (nuevoAuto != null) {
-				return Response.status(200).entity(nuevoAuto).build();
+				return Response.status(200).entity("Auto Guardado OK: " + auto.toString()).build();
 			}
 			return Response.status(500).entity("Auto no guardado").build();	
 		}else{
@@ -79,11 +80,12 @@ public class AutoServices {
 	@GET
 	@Path("/eliminarAutoById/{idAuto}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response eliminarAutoByID(@PathParam("param") long idAuto) {
+	public Response eliminarAutoByID(@PathParam("idAuto") long idAuto) {
+		System.out.println("Buscando ID: " + idAuto);
 		Automovil auto = automovilUtil.obtenerAutoPorId(idAuto);
 		if (auto != null) {
 			automovilUtil.eliminarAuto(auto);
-			return Response.status(200).entity(auto).build();
+			return Response.status(200).entity("Auto Eliminado - "+ auto.toString() ).build();
 		}
 		return Response.status(500).entity("Auto no encontrado").build();
 	}

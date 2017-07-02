@@ -1,7 +1,10 @@
 package com.marcos.cablevision.entities;
 
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -33,7 +36,7 @@ public class Automovil implements IEntity {
 	@CollectionTable(name = "AutomovilDetalle", joinColumns = @JoinColumn(name = "tipoCaracteristica") )
 	@Column(name = "detalle")
 	@JsonIgnore
-	private List<String> listaOpcionales = new ArrayList<>();
+	private Set<String> listaOpcionales = new HashSet<>();
 	private Integer precioTotal = Integer.valueOf(0);
 
 	public Integer getPrecioTotal() {
@@ -47,7 +50,7 @@ public class Automovil implements IEntity {
 	public Automovil() {
 	}
 
-	public Automovil(String nombre, ArrayList<String> opcionales) {
+	public Automovil(String nombre, Set<String> opcionales) {
 		this.nombre = nombre;
 		this.listaOpcionales = opcionales;
 	}
@@ -56,7 +59,7 @@ public class Automovil implements IEntity {
 		this.nombre = nombre;
 	}
 
-	public Automovil(long id, String nombre, ArrayList<String> listaOpcionales) {
+	public Automovil(long id, String nombre, Set<String> listaOpcionales) {
 		this.id = id;
 		this.nombre = nombre;
 		this.listaOpcionales = listaOpcionales;
@@ -78,11 +81,11 @@ public class Automovil implements IEntity {
 		this.nombre = nombre;
 	}
 
-	public List<String> getListaOpcionales() {
+	public Set<String> getListaOpcionales() {
 		return listaOpcionales;
 	}
 
-	public void setListaOpcionales(ArrayList<String> listaOpcionales) {
+	public void setListaOpcionales(Set<String> listaOpcionales) {
 		this.listaOpcionales = listaOpcionales;
 	}
 
